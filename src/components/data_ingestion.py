@@ -25,7 +25,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            df=pd.read_csv('notebook/student-performance.csv')
+            df=pd.read_csv('StudentsPerformance.csv')
             logging.info('Read the dataset as dataframe')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
@@ -52,13 +52,14 @@ class DataIngestion:
 if __name__=="__main__":
     from src.components.Data_ingestion import DataIngestion
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    # obj.initiate_data_ingestion()
     train_data,test_data=obj.initiate_data_ingestion()
     
     from src.components.data_transformation import DataTransformation
     data_transformation=DataTransformation()
-    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_= data_transformation.initiate_data_transformation(train_data,test_data)
 
     from src.components.model_trainer import ModelTrainer
     modeltrainer=ModelTrainer()
     print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
+
